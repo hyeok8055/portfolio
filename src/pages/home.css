@@ -1,5 +1,26 @@
 /* Layout for home page - two columns, right column split into three rows */
 
+/* 기본 레이아웃 설정 - 데스크톱 우선 */
+.desktop-layout {
+  display: flex !important;
+  width: 100%;
+}
+
+.mobile-layout {
+  display: none !important;
+}
+
+/* 모바일에서만 레이아웃 변경 */
+@media screen and (max-width: 860px) {
+  .desktop-layout {
+    display: none !important;
+  }
+  
+  .mobile-layout {
+    display: block !important;
+  }
+}
+
 /* Fade-in-up animation */
 @keyframes fadeInUp {
   from {
@@ -103,24 +124,8 @@
 .circle.projects, .ant-btn.circle.projects { background: var(--color-projects); }
 .circle.contact, .ant-btn.circle.contact { background: var(--color-contact); }
 
-/* Desktop Layout - 기본값 */
-.mobile-layout {
-  display: none;
-}
-
-.desktop-layout {
-  display: flex;
-}
-
-@media (max-width: 860px) {
-  .desktop-layout {
-    display: none !important;
-  }
-  
-  .mobile-layout {
-    display: block !important;
-  }
-  
+/* 모바일 전용 스타일 - 미디어쿼리 안에서만 적용 */
+@media screen and (max-width: 860px) {
   .mobile-content {
     display: flex;
     flex-direction: column;
@@ -130,46 +135,46 @@
     margin-bottom: 60px;
     text-align: center;
   }
-  
+
   .mobile-profile {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 0 24px;
   }
-  
+
   .mobile-layout .profile-wrap {
     max-width: 280px;
     margin: 0;
   }
-  
+
   .mobile-layout .greeting h1 {
     font-size: 3.5rem;
     padding-left: 3px;
     text-align: start;
   }
-  
+
   .mobile-layout .about {
     text-align: start;
   }
-  
+
   .mobile-layout .about h3 {
     text-align: start;
     margin-bottom: 12px;
   }
-  
+
   .mobile-layout .about p {
     max-width: 100%;
     text-align: start;
     font-size: 16px;
     line-height: 1.5;
   }
-  
+
   .mobile-layout .actions {
     align-self: center;
     justify-content: center;
   }
-  
+
   .mobile-layout .circle {
     width: 90px;
     height: 90px;
