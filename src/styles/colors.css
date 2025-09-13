@@ -1,0 +1,7 @@
+/* Centralized color tokens for the site */
+:root {
+  --color-resume: #EEA302; /* mustard / yellow */
+  --color-projects: #ff3b30; /* red */
+  --color-contact: #7ad2cc; /* teal */
+  --bg-profile: #efefef;
+}

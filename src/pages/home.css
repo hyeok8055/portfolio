@@ -1,0 +1,179 @@
+/* Layout for home page - two columns, right column split into three rows */
+
+/* Fade-in-up animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(80px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.fade-in-up-delay-1 {
+  opacity: 0;
+  animation: fadeInUp 0.5s ease-out 0.2s forwards;
+}
+
+.fade-in-up-delay-2 {
+  opacity: 0;
+  animation: fadeInUp 0.6s ease-out 0.4s forwards;
+}
+
+
+.left-col {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+
+}
+
+.right-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  text-align: start;
+}
+
+.profile-wrap {
+  width: 100%;
+  max-width: 400px;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-profile, #f3f3f3);
+  border-radius: 50%;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.profile-img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  display: block;
+}
+
+.about p {
+  margin: 0;
+  font-size: 15px;
+  max-width: 350px;
+  border-radius: 4px;
+}
+
+.actions {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+/* Target Ant Design Button rendered as .ant-btn */
+.circle, .ant-btn.circle {
+  display: inline-flex;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  /* use a plain hex color; previous "var(#111)" is invalid */
+  color: #000;
+  font-weight: 700;
+  border: 1px solid black;
+  transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease, color 160ms ease;
+  font-size: 1rem;
+}
+
+.circle:hover, .ant-btn.circle:hover {
+  /* Only change the background on hover; keep text and border black */
+  box-shadow: 0 12px 20px rgba(0,0,0,0.12);
+  background-color: #fff;
+  color: #000;
+  border-color: #000;
+}
+
+.circle.resume, .ant-btn.circle.resume { background: var(--color-resume); }
+.circle.projects, .ant-btn.circle.projects { background: var(--color-projects); }
+.circle.contact, .ant-btn.circle.contact { background: var(--color-contact); }
+
+@media (max-width: 860px) {
+  .desktop-layout {
+    display: none !important;
+  }
+  
+  .mobile-layout {
+    display: block !important;
+  }
+  
+  .mobile-content {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 24px;
+    padding: 0 24px;
+    margin-bottom: 60px;
+    text-align: center;
+  }
+  
+  .mobile-profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 24px;
+  }
+  
+  .mobile-layout .profile-wrap {
+    max-width: 280px;
+    margin: 0;
+  }
+  
+  .mobile-layout .greeting h1 {
+    font-size: 3.5rem;
+    padding-left: 3px;
+    text-align: start;
+  }
+  
+  .mobile-layout .about {
+    text-align: start;
+  }
+  
+  .mobile-layout .about h3 {
+    text-align: start;
+    margin-bottom: 12px;
+  }
+  
+  .mobile-layout .about p {
+    max-width: 100%;
+    text-align: start;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  
+  .mobile-layout .actions {
+    align-self: center;
+    justify-content: center;
+  }
+  
+  .mobile-layout .circle {
+    width: 90px;
+    height: 90px;
+    font-size: 0.95rem;
+  }
+}
+
+/* Desktop Layout */
+.mobile-layout {
+  display: none;
+}
+
+.desktop-layout {
+  display: flex;
+}

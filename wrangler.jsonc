@@ -1,0 +1,7 @@
+{
+  "name": "chaeseul-portfolio",
+  "compatibility_date": "2025-09-13",
+  "assets": {
+    "directory": "./dist"
+  }
+}
