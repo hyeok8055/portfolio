@@ -3,7 +3,7 @@ import { Row, Col, Image, Typography, Button, Space, Flex } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import '../styles/colors.css';
 import './home.css';
-import profileImg from '@/assets/chaeseula.png';
+import profileImg from '@/assets/chaeseula.webp';
 
 const { Title } = Typography;
 

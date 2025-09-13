@@ -103,6 +103,15 @@
 .circle.projects, .ant-btn.circle.projects { background: var(--color-projects); }
 .circle.contact, .ant-btn.circle.contact { background: var(--color-contact); }
 
+/* Desktop Layout - 기본값 */
+.mobile-layout {
+  display: none;
+}
+
+.desktop-layout {
+  display: flex;
+}
+
 @media (max-width: 860px) {
   .desktop-layout {
     display: none !important;
@@ -166,13 +175,4 @@
     height: 90px;
     font-size: 0.95rem;
   }
-}
-
-/* Desktop Layout */
-.mobile-layout {
-  display: none;
-}
-
-.desktop-layout {
-  display: flex;
 }
