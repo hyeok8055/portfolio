@@ -3,7 +3,7 @@ import { Row, Col, Image, Typography, Button, Space, Flex } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import '../styles/colors.css';
 import './home.css';
-import profileImg from '../assets/test.jpg';
+import profileImg from '@/assets/chaeseula.png';
 
 const { Title } = Typography;
 
@@ -15,7 +15,18 @@ function Home() {
 	};
 
 	return (
-		<Space style={{ padding: '80px 0', width: '100%', maxWidth: '1200px', minHeight:'600px', margin: '0 auto', display: 'block' }}>
+		<Space
+			style={{
+				padding: '80px 0',
+				width: '100%',
+				maxWidth: '1200px',
+				minHeight: '75vh',
+				margin: '0 auto',
+				display: 'flex',
+				justifyContent: 'center',
+				alignItems: 'center',
+			}}
+		>
 			{/* Desktop Layout */}
 			<Row gutter={[1, 32]} style={{ width: '100%' }} className="desktop-layout">
 				<Col xs={24} md={12} className="left-col fade-in-up">
