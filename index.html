@@ -5,6 +5,27 @@
     <link rel="icon" type="image/svg+xml" href="/bori.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ChaeSeul Log</title>
+    <style>
+      /* 초기 레이아웃 깜빡임 방지 - 빌드 후에도 안전 */
+      .desktop-layout {
+        display: flex !important;
+        width: 100%;
+      }
+      
+      .mobile-layout {
+        display: none !important;
+      }
+      
+      @media screen and (max-width: 860px) {
+        .desktop-layout {
+          display: none !important;
+        }
+        
+        .mobile-layout {
+          display: block !important;
+        }
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>

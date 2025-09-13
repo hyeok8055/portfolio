@@ -1,14 +1,6 @@
 /* Layout for home page - two columns, right column split into three rows */
 
-/* 기본 레이아웃 설정 - 데스크톱 우선 */
-.desktop-layout {
-  display: flex !important;
-  width: 100%;
-}
-
-.mobile-layout {
-  display: none !important;
-}
+/* 레이아웃 기본 설정은 index.html에서 처리 */
 
 /* 모바일에서만 레이아웃 변경 */
 @media screen and (max-width: 860px) {
