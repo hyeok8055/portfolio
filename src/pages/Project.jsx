@@ -1,49 +1,113 @@
-import { Typography, Row, Col, Carousel, Space } from 'antd';
+import { Typography, Row, Col, Carousel, Space, Modal, Button } from 'antd';
+import { useState, useEffect } from 'react';
 import './project.css';
+
+// 동적으로 이미지를 불러오는 함수
+const getProjectImages = (projectId, imageCount) => {
+	const images = [];
+	for (let i = 1; i <= imageCount; i++) {
+		try {
+			// Vite의 동적 import를 사용
+			images.push(new URL(`../assets/preview/${projectId}/${i}.png`, import.meta.url).href);
+		} catch (error) {
+			console.warn(`이미지를 찾을 수 없습니다: assets/preview/${projectId}/${i}.png`);
+		}
+	}
+	return images;
+};
+
+// 모달용 발표자료 이미지를 동적으로 불러오는 함수 (Lazy Loading)
+const getModalImages = async (projectId) => {
+	const images = [];
+	for (let i = 1; i <= 20; i++) {
+		try {
+			// 파일명을 3자리 숫자로 포맷팅 (001, 002, ...)
+			const paddedNumber = i.toString().padStart(3, '0');
+			// 동적 import를 사용하여 이미지가 실제로 존재하는지 확인
+			const imageModule = await import(`../assets/modal/${projectId}/${paddedNumber}.jpg`);
+			images.push(imageModule.default);
+		} catch (error) {
+			// 이미지가 없으면 더 이상 시도하지 않음 (연속된 파일명 가정)
+			break;
+		}
+	}
+	return images;
+};
+
+// 단일 이미지를 lazy load하는 함수
+const loadSingleImage = async (projectId, imageIndex) => {
+	try {
+		const paddedNumber = imageIndex.toString().padStart(3, '0');
+		const imageModule = await import(`../assets/modal/${projectId}/${paddedNumber}.jpg`);
+		return imageModule.default;
+	} catch (error) {
+		console.warn(`이미지를 찾을 수 없습니다: assets/modal/${projectId}/${paddedNumber}.jpg`);
+		return null;
+	}
+};
 
 // 프로젝트 데이터
 const projectsData = [
 	{
 		id: 1,
-		name: "이어드림: AI기반 재난 현장 – 구호품 기부 매칭 플랫폼 2025.08",
-		description: "재난 현장 구호품 폐기 문제 해결을 위해 AI 기반 수요 예측과 공공데이터를 활용한 지능형 플랫폼을 구축. 대피소별 필요 물품을 제안하고 기부자에게 적절한 기부처를 매칭하여 낭비를 줄이고 투명성과 효율성을 확보하고자 함.",
-		images: []
+		name: "이어드림: AI 기반 재난 구호품 매칭 플랫폼 2025.08",
+		description: "AI 수요 예측으로 구호품 폐기율 50% 문제를 해결하는 재난 물품 매칭 플랫폼\n\n• 역할: 서비스 기획 총괄, AI 수요 예측 모델 설계\n• 성과: 제3회 재난안전데이터 창업경진대회 대상 수상",
+		imageCount: 1
 	},
 	{
 		id: 2,
-		name: "글로벌 무역 리스크의 공간적 클러스터링 분석: PCA 기반 거래위험고 인프라 취약성의 차별적 공간 패턴 규명2025.06",
-		description: "무역 리스크는 공간적으로 전염되어 클러스터를 이룬다는 양상을 분석한 공간 의존성을 무역 보험 심사에 포함하는 것을 제안함. 지정학적 거리 정보와 국가별 신용 위험 지표를 결합하여 기존 보험 심사 체계의 한계를 극복하고 나아가 리스크 핫스팟을 조기 식별하여 선제적으로 대응할 수 있기를 기대.",
-		images: []
+		name: "잡라이트(JobRight): 노동 생애주기 권익보호 서비스 2025.05",
+		description: "노동 생애주기 전반을 지원하며 청년 근로자의 권익을 보호하는 AI 법률 서비스\n\n• 역할: 서비스 기획 총괄, 데이터 전략 수립\n• 성과: 제4회 고용노동데이터 활용 공모전 수상",
+		imageCount: 4
 	},
 	{
 		id: 3,
-		name: "잡라이트(JobRIght): 근로 생애주기 별 맞춤 권익보호 서비스2025.05",
-		description: "청소년-청년 계층의 노동권 침해 사례가 증가함에 따라 구직-계약-근무-퇴사에 이르는 노동 생애주기에 필요한 정보를 제공하여 스스로의 권리를 지킬 수 있는 플랫폼을 제안 및 개발함.",
-		images: []
+		name: "태위치: 태권도 대회 자동화 프로그램 2025.02",
+		description: "수작업으로 진행되던 태권도 대회 서류 업무를 자동화하여 운영 효율을 극대화\n\n• 역할: 서비스 기획, 대외 협력 및 FE 개발\n• 성과: 대구광역시태권도협회 공식 도입, 핵심 업무 시간 95% 이상 단축",
+		imageCount: 1
 	},
 	{
 		id: 4,
-		name: "태위치: 태권도 경기 전후처리 자동화 프로그램2025.02",
-		description: "직접 태권도 대회를 개최하며 대회 준비 중 서류 관리를 손수 처리하며 비효율이 발생한다는 점을 발견. 대구광역시 태권도 협회 경기부와 협업을 진행하여 대회 준비 과정을 전자화-자동화하는 플랫폼을 개발하고 현장에서 실사용함.",
-		images: []
-	},
-	{
-		id: 5,
-		name: "사용자 장애 정보 가명화를 통한 나드리콜 지역별 배치2024.09",
-		description: "수요에 비해 차량 매칭율이 떨어진다는 점을 고려해 장애 정도와 지역 수요를 분석하여 나드리콜 맞춤형 차량 배치를 제안. 이때, 민감정보인 장애 정보를 가명처리하여 개인정보를 보호하면서 장애인 이동권 보장을 추구함.",
-		images: []
-	},
-	{
-		id: 6,
-		name: "사고다발해역입니다: 해상라디오를 통한 사고 주의 알람2023.06",
-		description: "사고 밀집 해역과 주요 사고 원인을 분석하여 사고 다발 해역에 진입하면 주의 방송이 송출되는 시스템을 제안. 특히 해상에서의 통신을 고려하여 라디오 기반의 경고 방송 송출 방식을 채택하여 실현 가능성을 확보함.",
-		images: []
+		name: "MOPIc: AI 기반 영어 말하기 모의시험 서비스 2024.03",
+		description: "생성형 AI로 OPIc 모의시험 문제 출제 및 자동 평가를 제공하여 단기 집중 연습을 지원하는 서비스\n\n• 역할: 생성형 AI 문제 생성 모듈 개발, 다차원 평가 알고리즘 설계\n• 성과: 네이버 부스트캠프 최종 프로젝트 발표 및 서비스 시연",
+		imageCount: 1
 	}
 ];
 
 const { Title, Paragraph } = Typography;
 
 function Project() {
+	const [isModalVisible, setIsModalVisible] = useState(false);
+	const [selectedProject, setSelectedProject] = useState(null);
+	const [modalImages, setModalImages] = useState([]);
+	const [isLoadingImages, setIsLoadingImages] = useState(false);
+
+	const showModal = (project) => {
+		setSelectedProject(project);
+		setIsModalVisible(true);
+		loadModalImages(project.id);
+	};
+
+	const loadModalImages = async (projectId) => {
+		setIsLoadingImages(true);
+		setModalImages([]);
+		try {
+			const images = await getModalImages(projectId);
+			setModalImages(images);
+		} catch (error) {
+			console.error('이미지 로딩 중 오류 발생:', error);
+		} finally {
+			setIsLoadingImages(false);
+		}
+	};
+
+	const handleCancel = () => {
+		setIsModalVisible(false);
+		setSelectedProject(null);
+		setModalImages([]);
+		setIsLoadingImages(false);
+	};
+
 	return (
 		<div className="project-container">
 			{/* 페이지 제목 */}
@@ -60,16 +124,37 @@ function Project() {
 						<Row gutter={[20, 20]} align="top">
 							{/* 좌측: 프로젝트명과 설명 */}
 							<Col xs={24} md={10} lg={12} className="project-content">
-								{/* 프로젝트 일자 */}
-								<div style={{ fontSize: '13px', color: '#888', lineHeight: '1.1', marginBottom: '2px' }}>
-									{project.name.match(/(\d{4}\.\d{2})$/)?.[1]}
+								<div style={{ 
+									height: '100%', 
+									display: 'flex', 
+									flexDirection: 'column', 
+									justifyContent: 'space-between'
+								}}>
+									<div>
+										{/* 프로젝트 일자 */}
+										<div style={{ fontSize: '13px', color: '#888', lineHeight: '1.1', marginBottom: '2px' }}>
+											{project.name.match(/(\d{4}\.\d{2})$/)?.[1]}
+										</div>
+										<Title level={3} style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '16px' }}>
+											{project.name.replace(/(\d{4}\.\d{2})$/, '').trim()}
+										</Title>
+										<Paragraph style={{ fontSize: '14px', lineHeight: '1.6', color: '#666', whiteSpace: 'pre-line' }}>
+											{project.description}
+										</Paragraph>
+									</div>
+									<Button 
+										type="text" 
+										style={{ 
+											padding: '0', 
+											height: 'auto', 
+											fontSize: '14px',
+											alignSelf: 'flex-start'
+										}}
+										onClick={() => showModal(project)}
+									>
+										[ 더보기 ]
+									</Button>
 								</div>
-								<Title level={3} style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '16px' }}>
-									{project.name.replace(/(\d{4}\.\d{2})$/, '').trim()}
-								</Title>
-								<Paragraph style={{ fontSize: '14px', lineHeight: '1.6', color: '#666' }}>
-									{project.description}
-								</Paragraph>
 							</Col>
 
 							{/* 중간: 빈 공간 */}
@@ -78,36 +163,90 @@ function Project() {
 
 							{/* 우측: 이미지 캐러셀 */}
 							<Col xs={24} md={10} lg={8}>
-								{project.images.length > 0 ? (
-									<Carousel
-										autoplay
-										autoplaySpeed={5000}
-										style={{ maxWidth: '400px'}}
-									>
-										{project.images.map((image, imgIndex) => (
-											<div key={imgIndex}>
-												<img 
-													src={image} 
-													alt={`${project.name} ${imgIndex + 1}`}
-													style={{
-														width: '100%',
-														height: '300px',
-														objectFit: 'cover',
-													}}
-												/>
-											</div>
-										))}
-									</Carousel>
-								) : (
-									<div style={{ width: '100%', height: '300px', backgroundColor: '#f0f0f0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-										이미지 준비 중
-									</div>
-								)}
+								{(() => {
+									const images = getProjectImages(project.id, project.imageCount);
+									return images.length > 0 ? (
+										<Carousel
+											autoplay
+											autoplaySpeed={5000}
+											style={{ maxWidth: '400px'}}
+										>
+											{images.map((image, imgIndex) => (
+												<div key={imgIndex}>
+													<img 
+														src={image} 
+														alt={`${project.name} ${imgIndex + 1}`}
+														style={{
+															width: '100%',
+															height: '300px',
+															objectFit: 'contain',
+														}}
+													/>
+												</div>
+											))}
+										</Carousel>
+									) : (
+										<div style={{ width: '100%', height: '300px', backgroundColor: '#f0f0f0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+											이미지 준비 중
+										</div>
+									);
+								})()}
 							</Col>
 						</Row>
 					</div>
 				))}
 			</Space>
+
+			{/* 모달창 */}
+			<Modal
+				title={selectedProject ? selectedProject.name.replace(/(\d{4}\.\d{2})$/, '').trim() : ''}
+				open={isModalVisible}
+				onCancel={handleCancel}
+				footer={null}
+				width={800}
+				centered
+			>
+				{selectedProject && (
+					isLoadingImages ? (
+						<div style={{ 
+							textAlign: 'center', 
+							padding: '50px', 
+							color: '#999' 
+						}}>
+							발표자료 로딩 중...
+						</div>
+					) : modalImages.length > 0 ? (
+						<Carousel
+							autoplay={false}
+							dots={true}
+							style={{ textAlign: 'center' }}
+						>
+							{modalImages.map((image, imgIndex) => (
+								<div key={imgIndex}>
+									<img 
+										src={image} 
+										alt={`${selectedProject.name} 발표자료 ${imgIndex + 1}`}
+										style={{
+											width: '100%',
+											maxHeight: '500px',
+											objectFit: 'contain',
+										}}
+										loading="lazy"
+									/>
+								</div>
+							))}
+						</Carousel>
+					) : (
+						<div style={{ 
+							textAlign: 'center', 
+							padding: '50px', 
+							color: '#999' 
+						}}>
+							발표자료 준비 중
+						</div>
+					)
+				)}
+			</Modal>
 		</div>
 	);
 }

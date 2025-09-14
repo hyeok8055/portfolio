@@ -7,7 +7,7 @@ const { Title, Text } = Typography;
 function Resume() {
 	const workExperienceData = [
 		{
-			date: "2025 - Present",
+			date: "2025.04 - Present",
 			title: "한국교육학술정보원",
 			subtitle: "디지털교육본부 교수학습지원부 연구원",
 			description: "초중등 교육정보서비스 인프라 및 콘텐츠 담당\n\
@@ -19,7 +19,7 @@ function Resume() {
 
 	const educationData = [
 		{
-			date: "2019 - 2025",
+			date: "2019.03 - 2025.02",
 			institution: "경북대학교",
 			degree: "학사",
 			description: "- 사회과학대학 문헌정보학과 전공\n\
@@ -27,7 +27,7 @@ function Resume() {
 			"
 		},
 		{
-			date: "2016 - 2019", 
+			date: "2023.11 - 2024.04", 
 			institution: "네이버 부스트캠프AI",
 			degree: "6기 수료",
 			description: "— 자연어처리(NLP) 이수"
