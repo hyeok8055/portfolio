@@ -42,7 +42,7 @@ function Header() {
 									width: '24px', 
 									height: '24px', 
 									borderRadius: '50%', 
-									backgroundColor: '#EEA302',
+									backgroundColor: '#FFB3BA',
 									margin : '0 5px 0 0'
 								}}></div>
 							</Col>
@@ -107,7 +107,7 @@ function Header() {
 										width: '20px', 
 										height: '20px', 
 										borderRadius: '50%', 
-										backgroundColor: '#EEA302',
+										backgroundColor: '#FFB3BA',
 										margin : '0 5px 0 0'
 									}}></div>
 								</Col>
@@ -166,7 +166,7 @@ function Header() {
 				<div className="mobile-menu-content">
 					<div className="mobile-menu-items">
 						<div className="mobile-menu-item" onClick={() => handleNavigation('/resume')}>
-							<span style={{ color: '#EEA302', fontWeight: 500, fontSize: '24px' }}>Resume</span>
+							<span style={{ color: '#FFB3BA', fontWeight: 500, fontSize: '24px' }}>Resume</span>
 						</div>
 						<div className="mobile-menu-item" onClick={() => handleNavigation('/projects')}>
 							<span style={{ color: '#333', fontWeight: 400, fontSize: '24px' }}>Projects</span>

@@ -1,7 +1,15 @@
 /* Centralized color tokens for the site */
 :root {
-  --color-resume: #EEA302; /* mustard / yellow */
-  --color-projects: #ff3b30; /* red */
-  --color-contact: #7ad2cc; /* teal */
+  /* 현재 사용중인 색상 */
+  /* --color-resume: #EEA302;
+  --color-projects: #ff3b30;
+  --color-contact: #7ad2cc; */
   --bg-profile: #efefef;
+
+  /* 파스텔 톤 색상 조합 옵션들 */
+  
+  --color-resume: #FFB3BA;
+  --color-projects: #FFDFBA;
+  --color-contact: #FFFFBA;
+
 }

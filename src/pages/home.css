@@ -99,7 +99,7 @@
   /* use a plain hex color; previous "var(#111)" is invalid */
   color: #000;
   font-weight: 700;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease, color 160ms ease;
   font-size: 1rem;
 }
