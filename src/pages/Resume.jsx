@@ -7,7 +7,13 @@ const { Title, Text } = Typography;
 function Resume() {
 	const workExperienceData = [
 		{
-			date: "2025.04 - Present",
+			date: "2025.12 - 2026.02",
+			title: "(주)드림아이디어소프트",
+			subtitle: "시스템사업부 사원",
+			description: "메타버스 및 웹, 어플리케이션 기획 담당"
+		},
+		{
+			date: "2025.04 - 2025.11",
 			title: "한국교육학술정보원",
 			subtitle: "디지털교육본부 교수학습지원부 연구원",
 			description: "초중등 교육정보서비스 인프라 및 콘텐츠 담당\n\
@@ -35,6 +41,16 @@ function Resume() {
 	];
 
 	const awardsData = [
+		{
+			title: "개방형 클라우드 플랫폼 활용 공모전",
+			award: "최우수상",
+			year: "2025"
+		},
+		{
+			title: "데이터 문제해결은행 활용 경진대회",
+			award: "최우수상",
+			year: "2025"
+		},
 		{
 			title: "제3회 재난 안전데이터 창업경진대회",
 			award: "대상",
