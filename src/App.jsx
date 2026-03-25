@@ -1,29 +1,37 @@
+import { lazy, Suspense } from 'react';
 import './App.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-import Home from '@/pages/home.jsx';
-import Resume from '@/pages/Resume.jsx';
-import Projects from '@/pages/Project.jsx';
-import PdfView from '@/pages/PdfView.jsx';
+
+const Home = lazy(() => import('@/pages/home.jsx'));
+const Resume = lazy(() => import('@/pages/Resume.jsx'));
+const Projects = lazy(() => import('@/pages/Project.jsx'));
+const PdfView = lazy(() => import('@/pages/PdfView.jsx'));
 
 function AppLayout() {
   const location = useLocation();
   const isPdf = location.pathname === '/pdf';
 
   if (isPdf) {
-    return <PdfView />;
+    return (
+      <Suspense fallback={<div />}>
+        <PdfView />
+      </Suspense>
+    );
   }
 
   return (
     <>
       <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/resume" element={<Resume />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/contact" element={<div>Contact Page</div>} />
-      </Routes>
+      <Suspense fallback={<div />}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/resume" element={<Resume />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/contact" element={<div>Contact Page</div>} />
+        </Routes>
+      </Suspense>
       <Footer />
     </>
   );

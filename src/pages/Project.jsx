@@ -8,7 +8,7 @@ const getProjectImages = (projectId, imageCount) => {
 	for (let i = 1; i <= imageCount; i++) {
 		try {
 			// Vite의 동적 import를 사용
-			images.push(new URL(`../assets/preview/${projectId}/${i}.png`, import.meta.url).href);
+			images.push(new URL(`../assets/preview/${projectId}/${i}.webp`, import.meta.url).href);
 		} catch (error) {
 			console.warn(`이미지를 찾을 수 없습니다: assets/preview/${projectId}/${i}.png`);
 		}
@@ -24,7 +24,7 @@ const getModalImages = async (projectId) => {
 			// 파일명을 3자리 숫자로 포맷팅 (001, 002, ...)
 			const paddedNumber = i.toString().padStart(3, '0');
 			// 동적 import를 사용하여 이미지가 실제로 존재하는지 확인
-			const imageModule = await import(`../assets/modal/${projectId}/${paddedNumber}.jpg`);
+			const imageModule = await import(`../assets/modal/${projectId}/${paddedNumber}.webp`);
 			images.push(imageModule.default);
 		} catch (error) {
 			// 이미지가 없으면 더 이상 시도하지 않음 (연속된 파일명 가정)
@@ -38,7 +38,7 @@ const getModalImages = async (projectId) => {
 const loadSingleImage = async (projectId, imageIndex) => {
 	try {
 		const paddedNumber = imageIndex.toString().padStart(3, '0');
-		const imageModule = await import(`../assets/modal/${projectId}/${paddedNumber}.jpg`);
+		const imageModule = await import(`../assets/modal/${projectId}/${paddedNumber}.webp`);
 		return imageModule.default;
 	} catch (error) {
 		console.warn(`이미지를 찾을 수 없습니다: assets/modal/${projectId}/${paddedNumber}.jpg`);

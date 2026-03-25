@@ -1,4 +1,3 @@
-import React from 'react';
 import profileImg from '@/assets/chaeseula.webp';
 import './pdf.css';
 
@@ -82,7 +81,7 @@ const projectsData = [
 // 프리뷰 이미지
 const getPreviewImage = (projectId) => {
 	try {
-		return new URL(`../assets/preview/${projectId}/1.png`, import.meta.url).href;
+		return new URL(`../assets/preview/${projectId}/1.webp`, import.meta.url).href;
 	} catch {
 		return null;
 	}
