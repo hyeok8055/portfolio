@@ -13,14 +13,14 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id) {
-          if (id.includes('node_modules/react-dom') ||
-              id.includes('node_modules/react/') ||
-              id.includes('node_modules/react-router-dom')) {
-            return 'vendor-react';
-          }
-          if (id.includes('node_modules/antd') ||
-              id.includes('node_modules/@ant-design')) {
-            return 'vendor-antd';
+          if (id.includes('node_modules')) {
+            if (id.includes('react-dom') ||
+                id.includes('react/') ||
+                id.includes('react-router') ||
+                id.includes('scheduler')) {
+              return 'vendor-react';
+            }
+            return 'vendor-lib';
           }
         },
       },
